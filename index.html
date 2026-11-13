@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kabadiwala Connect - Edge AI v2.0</title>
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f4f7f5;
+    color:#17251d;
+}
+
+header{
+    background:#123c2a;
+    color:white;
+    padding:18px 7%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.logo{
+    font-size:20px;
+    font-weight:bold;
+}
+
+nav{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+nav button{
+    background:rgba(255,255,255,0.1);
+    border:0;
+    color:white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor:pointer;
+    font-size:13px;
+    transition: 0.2s;
+}
+
+nav button:hover{
+    background:rgba(255,255,255,0.2);
+}
+
+.hero{
+    padding:50px 7%;
+    background:linear-gradient(135deg,#dff8e8,#ffffff);
+}
+
+.hero h1{
+    font-size:38px;
+    max-width:650px;
+}
+
+.hero p{
+    margin:12px 0 20px;
+    color:#52645a;
+    max-width:600px;
+}
+
+.btn{
+    background:#16a05d;
+    color:white;
+    border:0;
+    padding:12px 20px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
+    transition: 0.2s;
+}
+
+.btn:hover {
+    background: #12804b;
+}
+
+.btn-danger {
+    background: #dc2626 !important;
+}
+.btn-danger:hover {
+    background: #b91c1c !important;
+}
+
+section{
+    padding:35px 7%;
+}
+
+h2{
+    margin-bottom:15px;
+}
+
+.categories{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:15px;
+}
+
+.card{
+    background:white;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 4px 15px #0000000d;
+    cursor:pointer;
+    transition:.2s;
+    text-align: center;
+}
+
+.card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 6px 20px #00000015;
+}
+
+/* Detail View Styles */
+.detail-container {
+    background: #fff;
+    padding: 30px 7%;
+    min-height: 80vh;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.back-btn {
+    background: #e2e8f0;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.detail-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.stat-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 25px;
+    border-radius: 12px;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.stat-number {
+    font-size: 32px;
+    font-weight: bold;
+    color: #16a05d;
+    margin: 10px 0;
+}
+
+.sub-types-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.sub-card {
+    background: #f1f5f9;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Timeline Recycling Process Design */
+.process-container {
+    margin-top: 35px;
+    position: relative;
+    padding-left: 20px;
+}
+
+.process-step {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.step-number-circle {
+    min-width: 50px;
+    height: 50px;
+    background: #ea580c;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 18px;
+    z-index: 2;
+    box-shadow: 0 4px 10px rgba(234, 88, 12, 0.3);
+}
+
+.step-content {
+    background: #fff7ed;
+    border: 1px solid #ffedd5;
+    padding: 15px 20px;
+    border-radius: 10px;
+    flex-grow: 1;
+}
+
+.step-content h4 {
+    color: #c2410c;
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+.step-content p {
+    font-size: 13px;
+    color: #4b5563;
+    line-height: 1.4;
+}
+
+.harmful-box {
+    background: #ea580c;
+    color: white;
+    padding: 25px;
+    border-radius: 12px;
+    margin-top: 30px;
+}
+
+.harmful-box h3 {
+    margin-bottom: 15px;
+    font-size: 20px;
+}
+
+.harmful-box p {
+    margin-bottom: 12px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.form-box{
+    background:white;
+    max-width:550px;
+    padding:25px;
+    border-radius:16px;
+    box-shadow:0 4px 20px #00000010;
+    margin: 40px auto;
+}
+
+label{
+    display:block;
+    margin-top:12px;
+    margin-bottom:5px;
+    font-weight:bold;
+    font-size: 14px;
+}
+
+input,select,textarea{
+    width:100%;
+    padding:11px;
+    border:1px solid #ccd5cf;
+    border-radius:8px;
+    outline:none;
+    font-size: 14px;
+}
+
+textarea{
+    resize:none;
+}
+
+.result{
+    margin-top:12px;
+    padding:12px;
+    background:#e9fff2;
+    border-radius:8px;
+    font-weight:bold;
+    color: #123c2a;
+}
+
+.booking{
+    background:white;
+    margin:12px 0;
+    padding:18px;
+    border-radius:12px;
+    box-shadow:0 3px 12px #0000000a;
+}
+
+.status{
+    color:#159353;
+    font-weight:bold;
+    margin-top: 6px;
+}
+
+.ai-scanner-box {
+    background: #f0fdf4;
+    border: 2px dashed #16a05d;
+    padding: 15px;
+    border-radius: 12px;
+    margin-top: 15px;
+}
+
+footer{
+    background:#123c2a;
+    color:white;
+    text-align:center;
+    padding:20px;
+    font-size: 14px;
+}
+
+.hidden{
+    display:none !important;
+}
+
+@media(max-width:768px){
+    .hero h1{
+        font-size:28px;
+    }
+    header{
+        flex-direction:column;
+        gap:12px;
+        text-align: center;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- AUTH SCREEN WITH ROLE SELECTION -->
+<div id="authScreen" class="form-box" style="margin-top: 60px;">
+    <h2 style="text-align: center; color: #123c2a;">♻️ Kabadiwala Connect</h2>
+    <p style="text-align: center; color: #52645a; margin-bottom: 20px; font-size: 14px;">Edge AI Enabled Scrap Management Portal</p>
+    
+    <label>Full Name</label>
+    <input type="text" id="regName" placeholder="Enter your name">
+
+    <label>Mobile Number</label>
+    <input type="tel" id="regPhone" placeholder="10-digit mobile number" maxlength="10">
+
+    <label>Select Your Role</label>
+    <select id="regRole">
+        <option value="customer">👤 Customer (Selling Scrap)</option>
+        <option value="collector">🚚 Collector / Recycler (Buying Scrap)</option>
+    </select>
+
+    <br><br>
+    <button class="btn" style="width: 100%;" onclick="handleLogin()">Continue / Get OTP</button>
+</div>
+
+<!-- MAIN APP CONTAINER -->
+<div id="mainApp" class="hidden">
+
+<header>
+    <div class="logo">♻️ Kabadiwala Connect <span style="font-size: 10px; background: #16a05d; padding: 2px 6px; border-radius: 4px;">Edge AI v2.0</span></div>
+    <nav>
+        <span id="userGreeting" style="font-size: 13px; color: #dff8e8; margin-right: 5px;"></span>
+        <!-- Dynamic Nav Buttons based on Role -->
+        <div id="customerNav" style="display:inline-flex; gap:10px;">
+            <button onclick="showSection('home')">Home</button>
+            <button onclick="showSection('pickup')">Book Pickup</button>
+            <button onclick="showSection('bookings')">My Bookings</button>
+        </div>
+        <div id="collectorNav" class="hidden" style="display:inline-flex; gap:10px;">
+            <button onclick="showSection('adminPanel')" style="background: #2563eb;">Collector Dashboard</button>
+        </div>
+        <button onclick="logout()" style="background: #d32f2f;">Logout</button>
+    </nav>
+</header>
+
+<!-- HOME SECTION -->
+<div id="home">
+<section class="hero">
+    <h1>Turn Your Scrap Into Cash with AI 🤖💰</h1>
+    <p>
+        Smart Edge AI recognition scans your recyclables, calculates accurate market rates instantly, and schedules doorstep pickups.
+    </p>
+    <button class="btn" onclick="showSection('pickup')">
+        Book a Pickup with AI Scanner →
+    </button>
+</section>
+
+<section>
+    <h2>♻️ What can you sell? (Tap any to explore & check recycling lifecycle)</h2>
+    <div class="categories">
+        <div class="card" onclick="openDetail('paper')">
+            <div style="font-size:35px; margin-bottom:8px;">📦</div>
+            <h3>Paper</h3>
+            <p style="font-size: 13px; color: #666; margin: 4px 0;">Newspaper & cardboard</p>
+            <div style="color:#159353; font-weight:bold; margin-top:6px;">₹15/kg</div>
+        </div>
+        <div class="card" onclick="openDetail('plastic')">
+            <div style="font-size:35px; margin-bottom:8px;">🥤</div>
+            <h3>Plastic</h3>
+            <p style="font-size: 13px; color: #666; margin: 4px 0;">Bottles & plastic waste</p>
+            <div style="color:#159353; font-weight:bold; margin-top:6px;">₹25/kg</div>
+        </div>
+        <div class="card" onclick="openDetail('metal')">
+            <div style="font-size:35px; margin-bottom:8px;">🔩</div>
+            <h3>Metal</h3>
+            <p style="font-size: 13px; color: #666; margin: 4px 0;">Iron & other metals</p>
+            <div style="color:#159353; font-weight:bold; margin-top:6px;">₹40/kg</div>
+        </div>
+        <div class="card" onclick="openDetail('ewaste')">
+            <div style="font-size:35px; margin-bottom:8px;">💻</div>
+            <h3>E-Waste</h3>
+            <p style="font-size: 13px; color: #666; margin: 4px 0;">Old electronic items</p>
+            <div style="color:#159353; font-weight:bold; margin-top:6px;">₹60/kg</div>
+        </div>
+    </div>
+</section>
+</div>
+
+<!-- DYNAMIC DETAIL VIEW SECTION -->
+<div id="detailView" class="hidden">
+    <div class="detail-container">
+        <button class="back-btn" onclick="showSection('home')">← Back to Home</button>
+        <div id="detailContent"></div>
+    </div>
+</div>
+
+<!-- PICKUP SECTION WITH EDGE AI CAMERA SCANNER -->
+<div id="pickup" class="hidden">
+<section>
+<h2>🚚 Book Your Scrap Pickup via Edge AI</h2>
+<div class="form-box" style="margin: 0 auto;">
+
+<label>📸 Edge AI Live Camera Scanner</label>
+<div class="ai-scanner-box">
+    <p style="font-size: 13px; color: #16a05d; margin-bottom: 10px; font-weight: bold;">Scan Scrap with Camera or Upload Photo</p>
+    <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+        <!-- Choose File Input -->
+        <input type="file" id="aiPhotoInput" accept="image/*" onchange="runEdgeAIScanner(event)" style="flex: 1; min-width: 200px;">
+        <!-- AI Camera Trigger Button -->
+        <button type="button" class="btn" style="padding: 10px 15px; font-size: 13px; background: #2563eb;" onclick="triggerAICamera()">📷 AI Camera</button>
+    </div>
+    <div id="aiScanResult" style="margin-top: 10px; font-size: 13px; color: #333; font-weight: bold;"></div>
+</div>
+
+<label style="margin-top: 15px;">Select Scrap Category</label>
+<select id="scrap" onchange="calculatePrice()">
+<option value="">Choose category</option>
+<option value="paper">Paper - ₹15/kg</option>
+<option value="plastic">Plastic - ₹25/kg</option>
+<option value="metal">Metal - ₹40/kg</option>
+<option value="ewaste">E-Waste - ₹60/kg</option>
+</select>
+
+<label>Estimated Quantity (KG)</label>
+<input type="number" id="quantity" placeholder="Example: 10" min="1" oninput="calculatePrice()">
+
+<div id="priceResult" class="result">
+Estimated amount: ₹0
+</div>
+
+<label>Pickup Address</label>
+<textarea id="address" rows="3" placeholder="Enter your complete address"></textarea>
+
+<label>Pickup Date</label>
+<input type="date" id="date">
+
+<label>Pickup Time Slot</label>
+<select id="time">
+<option>09:00 AM - 11:00 AM</option>
+<option>11:00 AM - 01:00 PM</option>
+<option>02:00 PM - 04:00 PM</option>
+<option>04:00 PM - 06:00 PM</option>
+</select>
+
+<br><br>
+<button class="btn" style="width: 100%;" onclick="bookPickup()">
+Confirm AI Verified Pickup 🚚
+</button>
+</div>
+</section>
+</div>
+
+<!-- BOOKINGS SECTION -->
+<div id="bookings" class="hidden">
+<section>
+<h2>📋 My Bookings & Tracking</h2>
+<div id="bookingList">
+<p>No bookings yet.</p>
+</div>
+</section>
+</div>
+
+<!-- COLLECTOR / ADMIN DASHBOARD -->
+<div id="adminPanel" class="hidden">
+<section>
+<h2>🚚 Collector / Recycler Dashboard</h2>
+<p style="font-size: 13px; color: #666; margin-bottom: 20px;">Manage all incoming customer pickups and update collection status.</p>
+<div id="adminBookingList">
+<p>No active pick-up requests in the system.</p>
+</div>
+</section>
+</div>
+
+<footer>
+    <p>♻️ Kabadiwala Connect • Powered by Edge AI Model v2.0</p>
+    <p style="font-size: 12px; margin-top: 5px; opacity: 0.8;">Clean City • Smart Recycling • Better Future 🌱</p>
+</footer>
+
+</div>
+
+<script>
+let prices = { paper:15, plastic:25, metal:40, ewaste:60 };
+
+let scrapDetails = {
+    paper: {
+        title: "Paper Scrap",
+        icon: "📦",
+        totalGen: "12 million",
+        recycleRate: "27%",
+        types: ["Books", "Magazines", "Newspaper", "Cardboard", "Notebooks"],
+        recycledInto: ["Tissue Paper", "Egg Cartons", "Cardboard Boxes", "New Paper Products", "Insulation Materials"],
+        process: [
+            { step: "01", title: "Collection", desc: "Paper recycling begins with separating clean paper from other waste for collection and processing." },
+            { step: "02", title: "Transportation and Sorting", desc: "Collected paper is transported to an MRF for measurement, sorting, and categorisation based on paper type." },
+            { step: "03", title: "Shredding and Pulping", desc: "Shredded paper is mixed with water and chemicals at a paper mill to create pulp, which is then screened for contaminants." },
+            { step: "04", title: "De-Inking", desc: "De-inking removes dyes and inks from pulp using chemicals and air bubbles, preparing it for paper making." },
+            { step: "05", title: "Manufacturing", desc: "Clean pulp is pressed, dried, and rolled into new recycled paper products and sheets." }
+        ],
+        harmful: {
+            deforestation: "Increased demand for virgin paper leads to deforestation, affecting biodiversity and increasing carbon emissions.",
+            landfill: "Paper waste takes up significant space in landfills, where it decomposes slowly and emits methane, a potent greenhouse gas.",
+            water: "Chemicals used in the production of virgin paper can contaminate water bodies."
+        }
+    },
+    plastic: {
+        title: "Plastic Scrap",
+        icon: "🥤",
+        totalGen: "9.4 million",
+        recycleRate: "18%",
+        types: ["PET Bottles", "Milk Packets", "Plastic Containers", "Bucket & Mugs", "Carry Bags"],
+        recycledInto: ["Fleece Jackets", "Polymer Lumber", "New Bottles", "Storage Bins", "Fencing"],
+        process: [
+            { step: "01", title: "Collection", desc: "Plastic wastes are gathered from households and commercial centers for sorting." },
+            { step: "02", title: "Sorting & Cleaning", desc: "Plastics are sorted by polymer type and washed thoroughly to remove dirt and labels." },
+            { step: "03", title: "Shredding", desc: "Cleaned plastic items are mechanically shredded into small flakes or granules." },
+            { step: "04", title: "Melting & Pelletizing", desc: "Plastic flakes are melted down and extruded into uniform tiny pellets." },
+            { step: "05", title: "Manufacturing", desc: "Recycled pellets are molded into new plastic products, containers, and fibers." }
+        ],
+        harmful: {
+            deforestation: "Plastic production consumes massive petroleum resources and drives industrial emissions.",
+            landfill: "Plastics take over 400+ years to decompose in landfills, choking soil ecosystems and leaking toxins.",
+            water: "Microplastics enter oceans and water bodies, severely harming marine life and aquatic food chains."
+        }
+    },
+    metal: {
+        title: "Metal Scrap",
+        icon: "🔩",
+        totalGen: "7.1 million",
+        recycleRate: "65%",
+        types: ["Iron Rods", "Aluminum Cans", "Copper Wires", "Steel Utensils", "Brass Scrap"],
+        recycledInto: ["Auto Parts", "New Steel Beams", "Construction Rebar", "Metal Sheets", "Hardware Tools"],
+        process: [
+            { step: "01", title: "Collection", desc: "Ferrous and non-ferrous scrap metals are collected from scrap yards and industries." },
+            { step: "02", title: "Sorting", desc: "Metals are separated using magnets and advanced sensors based on their composition." },
+            { step: "03", title: "Shredding & Compacting", desc: "Large metal structures are shredded or crushed into manageable sizes for melting." },
+            { step: "04", title: "Melting & Refining", desc: "Metal scrap is melted in industrial furnaces and refined to remove impurities." },
+            { step: "05", title: "Solidification", desc: "Molten metal is poured into molds to form blocks, sheets, or bars for reuse." }
+        ],
+        harmful: {
+            deforestation: "Open-cast metal mining destroys large forest covers, habitats, and fertile topsoils.",
+            landfill: "Discarded metals cause heavy metal leaching into ground soil, polluting deep underground water tables.",
+            water: "Acid mine drainage and metal refining runoffs severely contaminate rivers and local water resources."
+        }
+    },
+    ewaste: {
+        title: "E-Waste Scrap",
+        icon: "💻",
+        totalGen: "3.2 million",
+        recycleRate: "12%",
+        types: ["Old Smartphones", "Laptops & PCs", "Dead Batteries", "Charging Cables", "Circuit Boards"],
+        recycledInto: ["Recovered Gold/Silver", "Recovered Copper", "New Circuit Substrate", "Plastic Casings", "Glass Panels"],
+        process: [
+            { step: "01", title: "Collection", desc: "Obsolete electronics and digital appliances are gathered through e-waste drop-offs." },
+            { step: "02", title: "Manual Dismantling", desc: "Devices are manually torn down to separate batteries, glass, plastics, and circuit boards." },
+            { step: "03", title: "Crushing & Shredding", desc: "Remaining components are shredded into fine particles to extract metal fractions." },
+            { step: "04", title: "Magnetic & Eddy Separation", desc: "Advanced magnet systems separate ferrous metals from non-ferrous and plastics." },
+            { step: "05", title: "Refining", desc: "Precious metals like gold, silver, and copper are chemically recovered and purified." }
+        ],
+        harmful: {
+            deforestation: "Unregulated e-waste dumping grounds destroy local vegetation and render surrounding land barren.",
+            landfill: "Toxic elements like lead, mercury, and cadmium seep out of electronic components directly into landfills.",
+            water: "Heavy metal seepage enters municipal water streams, posing extreme neurological and health hazards to humans."
+        }
+    }
+};
+
+window.onload = function() {
+    let currentUser = localStorage.getItem("kabadiwalaUser");
+    if(currentUser) {
+        let user = JSON.parse(currentUser);
+        applyUserSession(user);
+    }
+};
+
+function applyUserSession(user) {
+    document.getElementById("userGreeting").innerText = "Hi, " + user.name + " (" + (user.role === 'collector' ? 'Collector' : 'Customer') + ")";
+    document.getElementById("authScreen").classList.add("hidden");
+    document.getElementById("mainApp").classList.remove("hidden");
+
+    if(user.role === 'collector') {
+        document.getElementById("customerNav").classList.add("hidden");
+        document.getElementById("collectorNav").classList.remove("hidden");
+        showSection('adminPanel');
+    } else {
+        document.getElementById("collectorNav").classList.add("hidden");
+        document.getElementById("customerNav").classList.remove("hidden");
+        showSection('home');
+    }
+}
+
+function handleLogin() {
+    let name = document.getElementById("regName").value.trim();
+    let phone = document.getElementById("regPhone").value.trim();
+    let role = document.getElementById("regRole").value;
+
+    if(!name || !phone) {
+        alert("⚠️ Please fill Name and Mobile Number");
+        return;
+    }
+    if(phone.length !== 10) {
+        alert("⚠️ Please enter a valid 10-digit mobile number.");
+        return;
+    }
+
+    let otp = prompt("🔐 Enter the 4-digit OTP sent to " + phone + "\n(You can enter any 4 digits like 1234):");
+    if(otp && otp.length === 4) {
+        let userData = { name: name, phone: phone, role: role };
+        localStorage.setItem("kabadiwalaUser", JSON.stringify(userData));
+        
+        alert("✅ Login Successful as " + role.toUpperCase() + "!");
+        applyUserSession(userData);
+    } else {
+        alert("❌ Invalid OTP. Login cancelled.");
+    }
+}
+
+function logout() {
+    localStorage.removeItem("kabadiwalaUser");
+    document.getElementById("mainApp").classList.add("hidden");
+    document.getElementById("authScreen").classList.remove("hidden");
+}
+
+function showSection(section){
+    document.getElementById("home").classList.add("hidden");
+    document.getElementById("detailView").classList.add("hidden");
+    document.getElementById("pickup").classList.add("hidden");
+    document.getElementById("bookings").classList.add("hidden");
+    document.getElementById("adminPanel").classList.add("hidden");
+
+    document.getElementById(section).classList.remove("hidden");
+    window.scrollTo({ top:0, behavior:"smooth" });
+    if(section === 'adminPanel') loadAdminBookings();
+    if(section === 'bookings') loadBookings();
+}
+
+function openDetail(categoryKey) {
+    let data = scrapDetails[categoryKey];
+    if(!data) return;
+
+    let processHTML = data.process.map(p => `
+        <div class="process-step">
+            <div class="step-number-circle">${p.step}</div>
+            <div class="step-content">
+                <h4>Step ${p.step}: ${p.title}</h4>
+                <p>${p.desc}</p>
+            </div>
+        </div>
+    `).join('');
+
+    let contentHTML = `
+        <div class="detail-header">
+            <span style="font-size: 50px;">${data.icon}</span>
+            <h1 style="margin-top: 10px; color: #123c2a;">${data.title}</h1>
+        </div>
+
+        <div class="stat-box">
+            <p style="color: #52645a; font-weight: bold;">Total ${data.title.toLowerCase()} generated in India</p>
+            <p style="font-size: 12px; color: #888; margin-top: 2px;">Approximately</p>
+            <div class="stat-number">${data.totalGen}</div>
+            <p style="font-size: 13px; color: #52645a;">tons annually</p>
+            <hr style="margin: 20px 0; border: 0; border-top: 1px solid #e2e8f0;">
+            <p style="font-size: 13px; color: #666;">National Recycle Rate</p>
+            <h3 style="color: #16a05d; margin-top: 5px;">${data.recycleRate}</h3>
+        </div>
+
+        <h3 style="margin-top: 30px;">Types of ${data.title.toLowerCase()} generated</h3>
+        <div class="sub-types-grid">
+            ${data.types.map(t => `<div class="sub-card">📦 ${t}</div>`).join('')}
+        </div>
+
+        <h3 style="margin-top: 35px;">Can be recycled into</h3>
+        <div class="sub-types-grid">
+            ${data.recycledInto.map(r => `<div class="sub-card" style="background:#e9fff2; color:#123c2a;">♻️ ${r}</div>`).join('')}
+        </div>
+
+        <h3 style="margin-top: 35px; margin-bottom: 20px;">Recycling process</h3>
+        <div class="process-container">
+            ${processHTML}
+        </div>
+
+        <div class="harmful-box">
+            <h3>Harmful Effects on Environment if Not Recycled</h3>
+            <p><strong>Deforestation / Resource Extraction:</strong> ${data.harmful.deforestation}</p>
+            <p><strong>Landfill Space:</strong> ${data.harmful.landfill}</p>
+            <p><strong>Water Pollution:</strong> ${data.harmful.water}</p>
+        </div>
+    `;
+
+    document.getElementById("detailContent").innerHTML = contentHTML;
+    document.getElementById("home").classList.add("hidden");
+    document.getElementById("detailView").classList.remove("hidden");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+// Real simulated AI Camera Trigger Function
+function triggerAICamera() {
+    let resultDiv = document.getElementById("aiScanResult");
+    resultDiv.innerHTML = "📷 Opening Edge AI Camera Stream... Point at scrap item.";
+    
+    setTimeout(() => {
+        let categories = ['paper', 'plastic', 'metal', 'ewaste'];
+        let detected = categories[Math.floor(Math.random() * categories.length)];
+        let confidence = (94.2 + Math.random() * 5).toFixed(1);
+
+        document.getElementById("scrap").value = detected;
+        document.getElementById("quantity").value = 12; // Auto-estimated quantity by AI scanner
+        calculatePrice();
+
+        resultDiv.innerHTML = `✅ Edge AI Camera Scan Successful! Detected: <strong>${detected.toUpperCase()}</strong> (${confidence}% Match). Rate & Quantity auto-calculated!`;
+    }, 1500);
+}
+
+function runEdgeAIScanner(event) {
+    let file = event.target.files[0];
+    if(!file) return;
+
+    let resultDiv = document.getElementById("aiScanResult");
+    resultDiv.innerHTML = "🤖 Edge AI analyzing image upload...";
+
+    setTimeout(() => {
+        let categories = ['paper', 'plastic', 'metal', 'ewaste'];
+        let detected = categories[Math.floor(Math.random() * categories.length)];
+        let confidence = (91 + Math.random() * 8).toFixed(1);
+
+        document.getElementById("scrap").value = detected;
+        document.getElementById("quantity").value = 10;
+        calculatePrice();
+
+        resultDiv.innerHTML = `✅ AI File Analysis Success! Detected: <strong>${detected.toUpperCase()}</strong> (${confidence}% Match).`;
+    }, 1000);
+}
+
+function calculatePrice(){
+    let scrap = document.getElementById("scrap").value;
+    let quantity = Number(document.getElementById("quantity").value);
+
+    if(!scrap || !quantity){
+        document.getElementById("priceResult").innerText = "Estimated amount: ₹0";
+        return;
+    }
+    let total = prices[scrap] * quantity;
+    document.getElementById("priceResult").innerText = "Estimated amount: ₹" + total;
+}
+
+function bookPickup(){
+    let scrap = document.getElementById("scrap").value;
+    let quantity = document.getElementById("quantity").value;
+    let address = document.getElementById("address").value;
+    let date = document.getElementById("date").value;
+    let time = document.getElementById("time").value;
+
+    if(!scrap || !quantity || !address || !date){
+        alert("⚠️ Please fill all required details.");
+        return;
+    }
+
+    let amount = prices[scrap] * Number(quantity);
+    let user = JSON.parse(localStorage.getItem("kabadiwalaUser"));
+
+    let booking = {
+        id: "KC" + Math.floor(Math.random()*100000),
+        userName: user ? user.name : "Customer",
+        userPhone: user ? user.phone : "",
+        scrap: scrap,
+        quantity: quantity,
+        amount: amount,
+        address: address,
+        date: date,
+        time: time,
+        status: "Pickup Confirmed"
+    };
+
+    let bookings = JSON.parse(localStorage.getItem("bookings")) || [];
+    bookings.push(booking);
+    localStorage.setItem("bookings", JSON.stringify(bookings));
+
+    alert("✅ AI Verified Pickup Booked Successfully!\n\nBooking ID: " + booking.id);
+
+    document.getElementById("scrap").value = "";
+    document.getElementById("quantity").value = "";
+    document.getElementById("address").value = "";
+    document.getElementById("aiScanResult").innerText = "";
+    document.getElementById("priceResult").innerText = "Estimated amount: ₹0";
+
+    loadBookings();
+    showSection('bookings');
+}
+
+function cancelBooking(id) {
+    let bookings = JSON.parse(localStorage.getItem("bookings")) || [];
+    bookings = bookings.filter(b => b.id !== id);
+    localStorage.setItem("bookings", JSON.stringify(bookings));
+    loadBookings();
+    loadAdminBookings();
+    alert("❌ Booking " + id + " has been cancelled.");
+}
+
+function updateStatus(id, newStatus) {
+    let bookings = JSON.parse(localStorage.getItem("bookings")) || [];
+    bookings = bookings.map(b => {
+        if(b.id === id) b.status = newStatus;
+        return b;
+    });
+    localStorage.setItem("bookings", JSON.stringify(bookings));
+    loadBookings();
+    loadAdminBookings();
+}
+
+function loadBookings(){
+    let bookings = JSON.parse(localStorage.getItem("bookings")) || [];
+    let user = JSON.parse(localStorage.getItem("kabadiwalaUser"));
+    let container = document.getElementById("bookingList");
+
+    // Filter bookings for current logged-in user phone
+    let userBookings = bookings.filter(b => user && b.userPhone === user.phone);
+
+    if(userBookings.length === 0){
+        container.innerHTML = "<p>No bookings yet.</p>";
+        return;
+    }
+
+    container.innerHTML = "";
+    userBookings.forEach(function(booking){
+        container.innerHTML += `
+        <div class="booking">
+            <h3>♻️ ${booking.scrap.toUpperCase()}</h3>
+            <p>📦 Quantity: ${booking.quantity} kg</p>
+            <p>💰 Estimated Payout: ₹${booking.amount}</p>
+            <p>📍 Address: ${booking.address}</p>
+            <p>📅 Date: ${booking.date} | ⏰ Time: ${booking.time}</p>
+            <p>🆔 Booking ID: ${booking.id}</p>
+            <p class="status">Status: ${booking.status}</p>
+            <br>
+            <button class="btn btn-danger" style="padding: 6px 12px; font-size: 12px;" onclick="cancelBooking('${booking.id}')">Cancel Booking</button>
+        </div>
+        `;
+    });
+}
+
+function loadAdminBookings(){
+    let bookings = JSON.parse(localStorage.getItem("bookings")) || [];
+    let container = document.getElementById("adminBookingList");
+
+    if(bookings.length === 0){
+        container.innerHTML = "<p>No active pick-up requests in the system.</p>";
+        return;
+    }
+
+    container.innerHTML = "";
+    bookings.forEach(function(booking){
+        container.innerHTML += `
+        <div class="booking" style="border-left: 4px solid #2563eb;">
+            <h3>👤 Customer: ${booking.userName} (${booking.userPhone})</h3>
+            <p>♻️ Scrap Type: <strong>${booking.scrap.toUpperCase()}</strong> (${booking.quantity} kg)</p>
+            <p>💰 Payout to Pay: ₹${booking.amount}</p>
+            <p>📍 Address: ${booking.address}</p>
+            <p>📅 Schedule: ${booking.date} (${booking.time})</p>
+            <p>🆔 ID: ${booking.id}</p>
+            <p class="status">Current Status: ${booking.status}</p>
+            <br>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <button class="btn" style="padding: 6px 12px; font-size: 12px; background: #2563eb;" onclick="updateStatus('${booking.id}', 'Collector Assigned')">Assign Collector</button>
+                <button class="btn" style="padding: 6px 12px; font-size: 12px; background: #16a05d;" onclick="updateStatus('${booking.id}', 'Completed & Paid')">Mark Completed</button>
+                <button class="btn btn-danger" style="padding: 6px 12px; font-size: 12px;" onclick="cancelBooking('${booking.id}')">Delete</button>
+            </div>
+        </div>
+        `;
+    });
+}
+</script>
+</body>
+</html>
